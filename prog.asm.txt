@@ -1,0 +1,4 @@
+.data
+	user_input: .space 1001  #1000 characters and a new line character
+.text
+	main: #Label for instructions part of the program
