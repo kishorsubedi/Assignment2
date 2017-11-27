@@ -1,4 +1,17 @@
 .data
 	user_input: .space 1001  #1000 characters and a new line character
+	user_prompt: .asciiz "Enter a hexadecimal number: \n" 
 .text
 	main: #Label for instructions part of the program
+	
+		li $v0, 4   		#Call code for printing string	
+		la $a0, user_prompt 	#Argument register now has address of user_prompt
+		syscall 		#String is printed 
+
+		li $v0, 8   #Call code for reading string
+		la $t0, user_input #register $t0 has address of user_input in memory
+		la $a0, ($t0) #Argument register $a0 has paramter the address in $t0
+		li $a1, 1001	#OS knows the max byte in memory
+		syscall 	#The user_input string is stored in user_input label in memory, whose address is in $t0
+
+
