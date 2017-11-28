@@ -14,4 +14,20 @@
 		li $a1, 1001	#OS knows the max byte in memory
 		syscall 	#The user_input string is stored in user_input label in memory, whose address is in $t0
 
+		
+		check_if_end:
+			beq $t0, 10, end_prog		#If $t0 reaches the end of character bytes, go to end label
+			addi $t1, $t0, 0
 
+		loop_thorugh_string:
+			lb $t2, 0($t1)
+			beq $t2, 27, end_string		#If $t2 has value equal to ascii value of a comma, a complete string has been found
+			addi $t1, $t1, 1
+			j loop_through_string
+
+		end_of_string:
+
+		end_prog:
+			li $v0, 10 
+			syscall
+	
