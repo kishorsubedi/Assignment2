@@ -14,6 +14,27 @@
 		li $a1, 1001	#OS knows the max byte in memory
 		syscall 	#The user_input string is stored in user_input label in memory, whose address is in $t0
 
+
+
+		la $t9, 1001($t0)   #Register $t9 stores the byte next to the byte last allocated of user_input in memory
+
+		
+		beq $t0, $t9, end_reached
+		la $t1, ($t0)
+		
+		beq $t1, 44, string_end_found 
+			beq $t1, 0, end_reached #The moving register if finds /0 or /n. has to end the program
+			beq $t1, 10, end_reached
+			
+			#Check character valdity here by calling the character validating function
+			#If invalid, chracters from $t0 to $t1 are put as it is 
+			#If valid, branch to a hexadecimal converter procedure
+
+			la $t0, ($t1)
+			la $t1, 1($t1)
+
+
+
 		
 		check_if_end:
 			beq $t0, 10, end_prog		#If $t0 reaches the end of character bytes, go to end label
